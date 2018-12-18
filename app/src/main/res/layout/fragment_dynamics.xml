@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view_statusBar_dy"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/darkgreen"/>
+
+    <RelativeLayout
+        android:id="@+id/title_dynamics"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_size"
+        android:layout_below="@+id/view_statusBar_dy"
+        android:background="@color/darkgreen">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="关注"
+            android:textSize="@dimen/text_size_18" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_dynamics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_dynamics"></android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

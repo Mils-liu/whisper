@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <View
+        android:id="@+id/view_statusBar_au"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/darkgreen"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_title_mycollections"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_size"
+        android:background="@color/darkgreen"
+        android:layout_below="@+id/view_statusBar_au">
+
+        <Button
+            android:id="@+id/btn_back_myarticle"
+            android:layout_width="@dimen/back_size"
+            android:layout_height="@dimen/back_size"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_14"
+            android:background="@drawable/back"/>
+
+        <TextView
+            android:id="@+id/txt_myarticle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的文字"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/btn_back_myarticle"
+            android:layout_marginLeft="5dp"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/txt_myarticle_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_15"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/txt_myarticle"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:text="(0)"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_myarticle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_title_mycollections"/>
+
+</RelativeLayout>

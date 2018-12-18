@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_user_search"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ci_head_mysearch"
+        android:layout_width="@dimen/head_size"
+        android:layout_height="@dimen/head_size"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="@dimen/margin_10"
+        android:src="@drawable/head" />
+
+    <TextView
+        android:id="@+id/txt_name_mysearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_toRightOf="@+id/ci_head_mysearch"
+        android:gravity="center"
+        android:text="用户名"
+        android:textColor="@color/textcolor"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_dofocus"
+        android:layout_width="@dimen/focus_width"
+        android:layout_height="@dimen/focus_height"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_10"
+        android:background="@drawable/shape_rounded_rectangle_select"
+        android:gravity="center"
+        android:text="@string/dofocus"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12"
+        android:tag="@string/dofocus"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/darkgray" />
+
+</RelativeLayout>

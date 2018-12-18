@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff">
+
+        <RelativeLayout
+            android:id="@+id/rl_inform"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ci_head"
+                android:layout_width="@dimen/head_size"
+                android:layout_height="@dimen/head_size"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:scaleType="centerCrop"
+                android:src="@drawable/head"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ci_head"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:id="@+id/txt_username_dy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="麦香菌"
+                    android:textColor="#000"
+                    android:textSize="@dimen/text_size_18"/>
+                <TextView
+                    android:id="@+id/txt_creation_dy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textcolor"
+                    android:text="2018-05-24 19:58"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_like_dy"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_marginTop="@dimen/margin_5"
+                android:gravity="center"
+                android:tag="@string/unlike"
+                android:background="@drawable/unlike"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_article_dynamics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_inform">
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_article_image"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:elevation="0dp">
+
+                <ImageView
+                    android:id="@+id/img_cover_dy"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image"/>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/ll_article_inform"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_article_image"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_title_dy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="关注标题"
+                    android:layout_gravity="left"
+                    android:textColor="#000"
+                    android:textSize="@dimen/text_size_15"
+                    android:layout_marginBottom="@dimen/margin_5"/>
+
+                <TextView
+                    android:id="@+id/txt_content_dy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textcolor"
+                    android:gravity="left"
+                    android:maxLines="3"
+                    android:text="高中美术老师在课欢孙燕，自信的举起了手一晃眼8、9年过去了，仿佛还是昨天发生的事"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    <View
+        android:id="@+id/view_distance"
+        android:layout_below="@+id/rl_article_dynamics"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_20"/>
+
+    </RelativeLayout>

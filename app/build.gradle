@@ -1,0 +1,48 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.2"
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "com.mils.whisper"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // Enabling multidex support.
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:27.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:27.+'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:recyclerview-v7:27.+'
+    compile 'com.android.support:cardview-v7:27.+'
+    compile 'com.youth.banner:banner:1.4.10'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'com.wang.avi:library:2.1.3'
+    compile ('com.github.yalantis:ucrop:2.2.2'){
+        exclude group:'com.squareup.okio',module:'okio'
+    }
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'cn.bmob.android:bmob-sdk:3.6.3'
+    compile 'cn.bmob.android:http-legacy:1.0'
+}

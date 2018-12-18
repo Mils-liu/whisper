@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <FrameLayout
+        android:id="@+id/ff_user_title_visit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_userbackground_visit"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_head"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ci_head_visit"
+            android:layout_width="@dimen/head_size_max"
+            android:layout_height="@dimen/head_size_max"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerCrop"
+            android:src="@drawable/head"
+            android:layout_marginTop="130dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_size"
+            android:orientation="horizontal"
+            android:layout_gravity="right">
+
+            <Button
+                android:id="@+id/btn_back_auv"
+                android:layout_width="@dimen/back_size"
+                android:layout_height="@dimen/back_size"
+                android:background="@drawable/back"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/margin_14" />
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txt_name_visit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ff_user_title_visit"
+        android:layout_margin="@dimen/margin_5"
+        android:layout_centerHorizontal="true"
+        android:text="麦香菌"
+        android:lines="1"
+        android:textColor="#000"
+        android:textSize="@dimen/text_size_22" />
+
+    <LinearLayout
+        android:id="@+id/ll_brief_visit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/txt_name_visit"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_15"
+            android:text="简介："
+            android:textColor="@color/textcolor"/>
+        <TextView
+            android:id="@+id/txt_brief_visit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我这个人很懒"
+            android:lines="1"
+            android:textSize="@dimen/text_size_15"
+            android:textColor="@color/textcolor"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_inform_visit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_below="@+id/ll_brief_visit">
+
+        <LinearLayout
+            android:id="@+id/ll_ff_visitor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txt_fans_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="粉丝"
+                android:textSize="@dimen/text_size_15"
+                android:layout_margin="@dimen/margin_5"
+                android:textColor="@color/textcolor"/>
+            <TextView
+                android:id="@+id/txt_fans_num_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_15"
+                android:layout_margin="@dimen/margin_5"
+                android:textColor="@color/textcolor"
+                android:text="0"/>
+            <TextView
+                android:id="@+id/txt_focus_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关注"
+                android:textSize="@dimen/text_size_15"
+                android:layout_margin="@dimen/margin_5"
+                android:textColor="@color/textcolor"/>
+            <TextView
+                android:id="@+id/txt_focus_num_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_15"
+                android:layout_margin="@dimen/margin_5"
+                android:textColor="@color/textcolor"
+                android:text="0"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/ll_ff_visitor"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/img_sex_visit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/sex_uncertain"
+                android:layout_margin="@dimen/margin_20"/>
+
+            <Button
+                android:layout_width="@dimen/focus_width"
+                android:layout_height="@dimen/focus_height"
+                android:text="@string/dofocus"
+                android:textSize="@dimen/text_size_12"
+                android:layout_margin="@dimen/margin_20"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_rounded_rectangle_select"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_articleInform_visit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_inform_visit"
+        android:layout_marginRight="@dimen/margin_20"
+        android:layout_marginLeft="@dimen/margin_20">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_height"
+            android:background="#000"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="文字"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_15"
+            android:background="#fff"
+            android:textColor="#000"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_article_inform_visit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fl_articleInform_visit"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <include layout="@layout/activity_article_inform_visit" />
+
+    </LinearLayout>
+
+</RelativeLayout>

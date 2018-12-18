@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <View
+        android:id="@+id/view_statusBar_focus"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/darkgreen"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:id="@+id/rl_title_focus"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_size"
+        android:layout_below="@+id/view_statusBar_focus"
+        android:background="@color/darkgreen">
+
+        <Button
+            android:id="@+id/btn_back_focus"
+            android:layout_width="@dimen/back_size"
+            android:layout_height="@dimen/back_size"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_14"
+            android:background="@drawable/back"/>
+
+        <TextView
+            android:id="@+id/txt_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的关注"
+            android:layout_toRightOf="@+id/btn_back_focus"
+            android:layout_marginLeft="5dp"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/txt_focus_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_15"
+            android:layout_toRightOf="@+id/txt_focus"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:text="(0)"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_focus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title_focus">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

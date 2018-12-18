@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_article_search"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff">
+
+    <TextView
+        android:id="@+id/txt_articleTitle_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_margin="@dimen/margin_10"
+        android:text="搜索标题"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_18" />
+
+    <TextView
+        android:id="@+id/txt_articleCreation_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_articleTitle_search"
+        android:layout_gravity="left"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginTop="-5dp"
+        android:text="创建于"
+        android:textColor="@color/textcolor"
+        android:textSize="@dimen/text_size_15" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_article_image_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_articleCreation_search"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        app:cardCornerRadius="@dimen/corner_radius_4">
+
+        <ImageView
+            android:id="@+id/img_articleCover_search"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image" />
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/txt_articleContent_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card_article_image_search"
+        android:layout_margin="@dimen/margin_10"
+        android:gravity="left"
+        android:maxLines="3"
+        android:text="高中美术老师在课堂上给我们放了《逆光》MV，说燕姿的专辑就算100块也会去买(当时内地版大概2、30块一张)，她还问班里有没有喜欢孙燕姿的，同学都齐刷刷地看向我，当时我感到很自豪，自信的举起了手一晃眼8、9年过去了，仿佛还是昨天发生的事"
+        android:textColor="@color/textcolor" />
+
+    <View
+        android:id="@+id/view_distance_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_below="@+id/txt_articleContent_search"
+        android:background="@color/gray" />
+
+</RelativeLayout>

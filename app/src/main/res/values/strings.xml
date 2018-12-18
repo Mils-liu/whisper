@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Whisper</string>
+    <string name="dofocus">+ 关 注</string>
+    <string name="cancelfocus">- 取 关</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="uncertain">保密</string>
+    <string name="loading_data">加载数据...</string>
+    <string name="load_failure">加载失败</string>
+    <string name="username_warn">用户名不能为空</string>
+    <string name="brief_introduce">这个人很懒，什么都没留下</string>
+    <string name="delete_article">删除文字</string>
+    <string name="cancel">取消</string>
+    <string name="uncollect">uncollect</string>
+    <string name="collect">collect</string>
+    <string name="unlike">unlike</string>
+    <string name="like">like</string>
+    <string name="end">没有更多了</string>
+    <string name="empty">空空如野o(︶︿︶)o</string>
+
+    <array name="prodIcon_tab">
+        <item>@drawable/selector_icon_user</item>
+        <item>@drawable/selector_icon_recommend</item>
+        <item>@drawable/selector_icon_dynamics</item>
+    </array>
+
+    <string name="filter_password">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="filter_vcode">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="filter_number">0123456789</string>
+
+    <string name="ucrop_error_input_data_is_absent">错误1</string>
+    <string name="ucrop_mutate_exception_hint">错误2</string>
+</resources>
