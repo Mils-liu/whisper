@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mils.whisper.R;
@@ -14,6 +15,7 @@ import com.mils.whisper.base.BaseActivity;
 import com.mils.whisper.bean.Fans;
 import com.mils.whisper.bean.User;
 import com.mils.whisper.config.LayoutConfig;
+import com.mils.whisper.user.UserVisitActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +46,15 @@ public class FansActivity extends BaseActivity {
     View statusBar;
     @BindView(R.id.txt_fans)
     TextView txt_fans;
+    @BindView(R.id.rl_loading_fans)
+    RelativeLayout rl_loading;
 
     private FansAdapter fansAdapter;
     private List<User> fansList = new ArrayList<>();
     private User user;
     private String from;
+
+    private Boolean currentFlag=true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +76,7 @@ public class FansActivity extends BaseActivity {
         initStatusBar(statusBar, LayoutConfig.RELATIVE_LAYOUT);
         if (null!=from){
             txt_fans.setText("他的粉丝");
+            currentFlag=false;
         }
     }
 
@@ -114,12 +121,27 @@ public class FansActivity extends BaseActivity {
         });
     }
 
-    private void initAdapter(List<User> fansList){
+    private void initAdapter(final List<User> fansList){
         Log.d(TAG,"doInitAdapter");
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rv_fans.setLayoutManager(layoutManager);
-        fansAdapter = new FansAdapter(fansList);
+        fansAdapter = new FansAdapter(fansList,currentFlag);
         rv_fans.setAdapter(fansAdapter);
+        rl_loading.setVisibility(View.GONE);
+
+        fansAdapter.setOnRecyclerViewListener(new FansAdapter.OnRecyclerViewListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                switch (view.getId()){
+                    case R.id.txt_focus_myfans:
+                        break;
+                    case R.id.rl_myfans:
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("user",fansList.get(position));
+                        startActivity(UserVisitActivity.class,bundle);
+                }
+            }
+        });
     }
 
     @OnClick(R.id.btn_back_fans)

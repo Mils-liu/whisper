@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mils.whisper.R;
-import com.mils.whisper.article.articlelist.ArticleAdapter;
 import com.mils.whisper.bean.Article;
 import com.mils.whisper.bean.User;
 
@@ -39,13 +38,13 @@ public class DynamicsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private int viewType;
     private List<String> likeList;
 
-    private ArticleAdapter.OnRecyclerViewListener onRecyclerViewListener;
+    private OnRecyclerViewListener onRecyclerViewListener;
 
     public interface OnRecyclerViewListener{
         void onItemClick(View view, int position);
     }
 
-    public void setOnRecyclerViewListener(ArticleAdapter.OnRecyclerViewListener mOnItemClickListener){
+    public void setOnRecyclerViewListener(OnRecyclerViewListener mOnItemClickListener){
         this.onRecyclerViewListener=mOnItemClickListener;
     }
 
@@ -139,8 +138,7 @@ public class DynamicsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if (objectId.equals(article.getObjectId())){
                         ((DynamicsViewHolder) holder).btn_like.setBackgroundResource(R.drawable.like);
                         ((DynamicsViewHolder) holder).btn_like.setTag(getContext().getResources().getString(R.string.like));
-                    }else {
-                        ((DynamicsViewHolder) holder).btn_like.setTag(getContext().getResources().getString(R.string.unlike));
+                        break;
                     }
                 }
             }

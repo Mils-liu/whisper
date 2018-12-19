@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_end"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="30dp"
     android:background="@color/gray">
 
     <TextView
         android:id="@+id/txt_end_dy"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_20"
+        android:layout_height="wrap_content"
         android:text="@string/end"
         android:layout_gravity="top"
         android:textSize="@dimen/text_size_15"

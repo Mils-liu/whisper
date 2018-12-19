@@ -149,6 +149,7 @@
                 android:layout_margin="@dimen/margin_20"/>
 
             <Button
+                android:id="@+id/btn_focus"
                 android:layout_width="@dimen/focus_width"
                 android:layout_height="@dimen/focus_height"
                 android:text="@string/dofocus"

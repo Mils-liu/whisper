@@ -216,80 +216,36 @@
 
     </RelativeLayout>
 
-    <!--<RelativeLayout
-        android:id="@+id/rl_email_setting"
+    <RelativeLayout
+        android:id="@+id/rl_resetPassword"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/rl_brief_setting"
+        android:background="@color/gray"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/margin_20"
-            android:text="邮箱"
-            android:textColor="@color/textcolor"
-            android:textSize="@dimen/text_size_18" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="@dimen/margin_20"
-            android:text="535830800@qq.com"
-            android:textColor="@color/darkgray"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:text="修改密码"
+            android:textColor="@color/black"
             android:textSize="@dimen/text_size_18" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/view_height"
             android:layout_alignParentBottom="true"
-            android:background="#000" />
-    </RelativeLayout>-->
-
-    <RelativeLayout
-        android:id="@+id/rl_phone_setting"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@+id/rl_brief_setting"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/margin_20"
-            android:text="手机"
-            android:textColor="@color/textcolor"
-            android:textSize="@dimen/text_size_18" />
-
-        <TextView
-            android:id="@+id/txt_phone_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="@dimen/margin_20"
-            android:text="17628037991"
-            android:textColor="@color/darkgray"
-            android:textSize="@dimen/text_size_18" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/view_height"
-            android:layout_alignParentBottom="true"
-            android:background="#000" />
+            android:background="@color/black" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_account_change"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@+id/rl_phone_setting"
+        android:layout_below="@+id/rl_resetPassword"
         android:background="@color/gray"
         android:orientation="horizontal">
 

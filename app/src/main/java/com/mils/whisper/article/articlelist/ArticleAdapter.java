@@ -120,7 +120,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 });
             }
         }else if (holder instanceof EndViewHolder){
-            if (null==mArticleList||mArticleList.size()==0){
+            if (null==mArticleList||getContentSize()==0){
                 ((EndViewHolder) holder).txt_end.setText(getContext().getResources().getString(R.string.empty));
             }
         }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_myfocus"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:background="#fff"
@@ -25,8 +26,8 @@
         android:textColor="@color/textcolor"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/txt_unfocus"
+    <Button
+        android:id="@+id/btn_unfocus"
         android:layout_width="@dimen/focus_width"
         android:layout_height="@dimen/focus_height"
         android:layout_alignParentRight="true"
@@ -36,7 +37,8 @@
         android:background="@drawable/shape_rounded_rectangle_unselect"
         android:gravity="center"
         android:text="@string/cancelfocus"
-        android:textColor="@color/textcolor"
+        android:textColor="@color/darkgray"
+        android:tag="@string/cancelfocus"
         android:textSize="@dimen/text_size_12" />
 
     <View

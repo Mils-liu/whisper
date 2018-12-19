@@ -101,16 +101,17 @@ public class ArticleListActivity extends BaseActivity {
             @Override
             public void done(List<Article> articleList,BmobException e) {
                 if(e==null){
-                    Log.d(TAG,"title:"+articleList.get(0).getTitle());
                     initAdapter(articleList);
                 }else{
                     Log.i("bmob","失败："+e.getMessage());
+                    initAdapter(articleList);
                 }
             }
         });
     }
 
     private void initCollection(){
+        Log.d(TAG,"initCollection");
         List<String> collectList = user.getCollectList();
         if (null!=collectList){
             BmobQuery<Article> query = new BmobQuery<>();
@@ -122,9 +123,12 @@ public class ArticleListActivity extends BaseActivity {
                         initAdapter(articleList);
                     }else {
                         Log.d(TAG,"error:"+e);
+                        initAdapter(articleList);
                     }
                 }
             });
+        }else {
+            initAdapter(articleList);
         }
     }
 
@@ -133,7 +137,6 @@ public class ArticleListActivity extends BaseActivity {
         rv_myarticle.setLayoutManager(layoutManager);
         ArticleAdapter articleAdapter = new ArticleAdapter(articleList);
         rv_myarticle.setAdapter(articleAdapter);
-        Log.d(TAG,"articleSize:"+articleList.size());
         txt_articlenum.setText("("+articleList.size()+")");
 
         articleAdapter.setOnRecyclerViewListener(new ArticleAdapter.OnRecyclerViewListener() {

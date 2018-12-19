@@ -15,6 +15,7 @@ import com.mils.whisper.base.BaseActivity;
 import com.mils.whisper.bean.Article;
 import com.mils.whisper.bean.User;
 import com.mils.whisper.fans.FansActivity;
+import com.mils.whisper.focus.Focus;
 import com.mils.whisper.focus.FocusActivity;
 import com.mils.whisper.util.TimeUtil;
 
@@ -23,12 +24,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.text.TextUtils.isEmpty;
+import static android.view.View.GONE;
 import static com.mils.whisper.app.MyApplicant.getContext;
 import static com.mils.whisper.dialogfragment.SexDialogFragment.FEMALE;
 import static com.mils.whisper.dialogfragment.SexDialogFragment.MALE;
@@ -68,8 +72,11 @@ public class UserVisitActivity extends BaseActivity {
     TextView txt_fans;
     @BindView(R.id.txt_focus_visit)
     TextView txt_focus;
+    @BindView(R.id.btn_focus)
+    Button btn_focus;
 
     private User user;
+    private User currentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,29 +86,62 @@ public class UserVisitActivity extends BaseActivity {
     }
 
     @Override
-    public void initView() {
-        Glide.with(getApplicationContext()).load(user.getUserBackground()).into(img_userBackground);
-        Glide.with(getApplicationContext()).load(user.getHead()).into(ci_head);
-        txt_username.setText(user.getUsername());
-        if (isEmpty(user.getBrief().toString())){
-            txt_brief.setText(getResources().getString(R.string.brief_introduce));
-        }else {
-            txt_brief.setText(user.getBrief());
-        }
-        initUserArticleCover(user);
-        initUserSex(user);
-        initUserfansNum(user);
-    }
-
-    @Override
     public void initData() {
         Bundle bundle = getIntent().getExtras();
         user = (User)bundle.getSerializable("user");
+        Log.d(TAG,"userObjectId:"+user.getObjectId());
+        currentUser = BmobUser.getCurrentUser(User.class);
+    }
+
+    @Override
+    public void initView() {
+        initUserInform();
+    }
+
+    private void initUserInform(){
+        Glide.with(getApplicationContext()).load(user.getUserBackground()).into(img_userBackground);
+        Glide.with(getApplicationContext()).load(user.getHead()).into(ci_head);
+        if (user.getObjectId().equals(currentUser.getObjectId())){
+            btn_focus.setVisibility(GONE);
+        }
+        txt_username.setText(user.getUsername());
+        txt_focusNum.setText(user.getFocusNum().toString());
+        txt_brief.setText(user.getBrief());
+        initUserArticleCover(user);
+        initCollectArticleCover(user);
+        initUserSex(user);
+        initUserfansNum(user);
+        initFocus(user);
+    }
+
+    private void initFocus(final User user){
+        BmobQuery<User> query = new BmobQuery<User>();
+        User myUser = new User();
+        myUser.setObjectId(currentUser.getObjectId());
+        Log.d(TAG,"currentObjectId:"+currentUser.getObjectId());
+        query.addWhereRelatedTo("focusUser",new BmobPointer(myUser));
+        query.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                if (e==null){
+                    for (User focusUser : list) {
+                        Log.d(TAG,"objectId:"+focusUser.getObjectId());
+                        if (focusUser.getObjectId().equals(user.getObjectId())){
+                            Log.d(TAG,"objectId2:"+focusUser.getObjectId());
+                            Focus.focus(btn_focus);
+                            break;
+                        }
+                    }
+                }else {
+                    Log.d(TAG,"error:"+e);
+                }
+            }
+        });
     }
 
     private void initUserArticleCover(User user){
         BmobQuery<Article> query = new BmobQuery<Article>();
-        query.addWhereEqualTo("author", user);  // 查询当前用户的所有帖子
+        query.addWhereEqualTo("author", user);
         query.order("-updatedAt");
         query.findObjects(new FindListener<Article>() {
             @Override
@@ -111,6 +151,7 @@ public class UserVisitActivity extends BaseActivity {
                     Glide.with(getApplicationContext()).load(object.get(0).getArticleCover().getUrl()).into(img_myCover);
                     Log.d(TAG,"title:"+object.get(0).getTitle());
                 }else {
+                    Glide.with(getApplicationContext()).load(R.drawable.image).into(img_myCover);
                     Log.d(TAG,"error:"+e);
                 }
             }
@@ -119,7 +160,7 @@ public class UserVisitActivity extends BaseActivity {
 
     private void initCollectArticleCover(User user){
         List<String> collectList = user.getCollectList();
-        if (null!=collectList){
+        if (null!=collectList&&collectList.size()>0){
             String objectId = collectList.get(collectList.size()-1);
             BmobQuery<Article> query = new BmobQuery<>();
             query.addWhereEqualTo("objectId",objectId);
@@ -129,6 +170,7 @@ public class UserVisitActivity extends BaseActivity {
                     if (e==null){
                         Glide.with(getContext()).load(list.get(0).getArticleCover().getUrl()).into(img_loveCover);
                     }else {
+                        Glide.with(getApplicationContext()).load(R.drawable.image).into(img_loveCover);
                         Log.d(TAG,"error:"+e);
                     }
                 }
@@ -205,5 +247,14 @@ public class UserVisitActivity extends BaseActivity {
         bundle.putSerializable("user",user);
         bundle.putString("from","search");
         startActivity(FocusActivity.class,bundle);
+    }
+
+    @OnClick(R.id.btn_focus)
+    public void onFocus(){
+        if (btn_focus.getText().equals(getResources().getString(R.string.cancelfocus))){
+            Focus.cancelFocus(currentUser,user,btn_focus);
+        }else {
+            Focus.doFocus(currentUser,user,btn_focus);
+        }
     }
 }

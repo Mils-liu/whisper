@@ -35,7 +35,7 @@ import static com.mils.whisper.util.ToastUtil.ToastShort;
  * Created by Administrator on 2018/6/3.
  */
 
-public class UserSearchFragment extends BaseFragment implements SearchActivity.OnUserSearchListener{
+public class UserSearchFragment extends BaseFragment implements SearchActivity.OnUserSearchListener {
 
     @BindView(R.id.rv_search_user)
     RecyclerView rv_usersearch;
@@ -56,7 +56,7 @@ public class UserSearchFragment extends BaseFragment implements SearchActivity.O
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((SearchActivity)context).setOnUserSearchListener(this);
+        ((SearchActivity) context).setOnUserSearchListener(this);
     }
 
     @Override
@@ -66,190 +66,188 @@ public class UserSearchFragment extends BaseFragment implements SearchActivity.O
     }
 
     @Override
-    public void doUserSearch(final String searchText,final UserSearchCallback callback) {
+    public void doUserSearch(final String searchText, final UserSearchCallback callback) {
         BmobQuery<User> query = new BmobQuery<User>();
         query.order("-createdAt");
         query.findObjects(new FindListener<User>() {
 
             @Override
             public void done(List<User> objects, BmobException e) {
-                if(e==null){
-                    Log.d("doSearch","startUserSearch");
-                    if (objects.size()>0){
-                        Log.d("doSearch","doUserSearch");
-                        if (userList.size()>0){
+                if (e == null) {
+                    Log.d("doSearch", "startUserSearch");
+                    if (objects.size() > 0) {
+                        Log.d("doSearch", "doUserSearch");
+                        if (userList.size() > 0) {
                             userList.clear();
                         }
                         for (User user : objects) {
-                            if (user.getUsername().indexOf(searchText)!=-1){
+                            if (user.getUsername().indexOf(searchText) != -1) {
                                 userList.add(user);
                             }
                         }
-                        Log.d(TAG,"username:"+userList.get(0).getUsername());
-                        if (userList.size()>0) {
+                        Log.d(TAG, "username:" + userList.get(0).getUsername());
+                        if (userList.size() > 0) {
                             end.setVisibility(View.INVISIBLE);
                             final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                             rv_usersearch.setLayoutManager(layoutManager);
-                            userSearchAdapter = new UserSearchAdapter(userList,myUser);
+                            userSearchAdapter = new UserSearchAdapter(userList, myUser);
                             rv_usersearch.setAdapter(userSearchAdapter);
 
                             callback.onSuccess();
-                            Log.d("doSearch","searchUserSuccess");
+                            Log.d("doSearch", "searchUserSuccess");
 
                             userSearchAdapter.setOnRecyclerViewListener(new UserSearchAdapter.OnRecyclerViewListener() {
                                 @Override
                                 public void onItemClick(View view, int position) {
-                                    switch (view.getId()){
+                                    switch (view.getId()) {
                                         case R.id.btn_dofocus:
-                                            Log.d(TAG,"objectId:"+myUser.getObjectId());
-                                            btn_dofocus = (Button)view.findViewById(R.id.btn_dofocus);
-                                            if (myUser.getObjectId().equals(userList.get(position).getObjectId())){
+                                            Log.d(TAG, "objectId:" + myUser.getObjectId());
+                                            btn_dofocus = (Button) view.findViewById(R.id.btn_dofocus);
+                                            if (myUser.getObjectId().equals(userList.get(position).getObjectId())) {
                                                 ToastShort("不能关注自己！");
-                                            }else {
-                                                if (btn_dofocus.getTag().equals(getResources().getString(R.string.dofocus))){
-                                                    doFocus(myUser,userList.get(position));
+                                            } else {
+                                                if (btn_dofocus.getTag().equals(getResources().getString(R.string.dofocus))) {
+                                                    doFocus(myUser, userList.get(position));
                                                 } else {
-                                                    cancelFocus(myUser,userList.get(position));
+                                                    cancelFocus(myUser, userList.get(position));
                                                 }
                                             }
-                                            Log.d(TAG,"listobjectId:"+userList.get(position).getObjectId());
+                                            Log.d(TAG, "listobjectId:" + userList.get(position).getObjectId());
                                             break;
                                         case R.id.rl_user_search:
                                             Bundle bundle = new Bundle();
-                                            bundle.putSerializable("user",userList.get(position));
-                                            startActivity(UserVisitActivity.class,bundle);
+                                            bundle.putSerializable("user", userList.get(position));
+                                            startActivity(UserVisitActivity.class, bundle);
                                             break;
                                     }
                                 }
                             });
-                        }else {
+                        } else {
                             userSearchAdapter.notifyDataSetChanged();
                             callback.onSuccess();
                             end.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        if (userList.size()>0){
+                        if (userList.size() > 0) {
                             userList.clear();
                         }
                         userSearchAdapter.notifyDataSetChanged();
                         end.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     end.setVisibility(View.VISIBLE);
                     callback.onFailure(e.getErrorCode());
-                    Log.d("doSearch","searchError2:"+e);
+                    Log.d("doSearch", "searchError2:" + e);
                 }
             }
+        });
+    }
 
-            /*关注*/
-            private void doFocus(final User myUser,final User focusUser){
-                Log.d(TAG,"userObjectId:"+focusUser.getObjectId());
-                /*添加关注的关联*/
-                User user = new User();
-                user.setObjectId(myUser.getObjectId());
-                BmobRelation relation = new BmobRelation();
-                relation.add(focusUser);
-                user.setFocusUser(relation);
-                /*关注数加1*/
-                user.increment("focusNum",1);
-                user.update(myUser.getObjectId(),new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e==null||e.getErrorCode()==9015){
-                            addFan(myUser,focusUser);
-                        }else {
-                            Log.d(TAG,"error1:"+e.getMessage());
-                            ToastShort("关注失败！");
-                        }
-                    }
-                });
-            }
-
-            /*取关*/
-            private void cancelFocus(final User myUser,final User focusUser){
-                /*删除关注的关联*/
-                User user = new User();
-                user.setObjectId(myUser.getObjectId());
-                BmobRelation relation = new BmobRelation();
-                relation.remove(focusUser);
-                user.setFocusUser(relation);
-                /*关注数减1*/
-                user.increment("focusNum",-1);
-                user.update(myUser.getObjectId(),new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e==null){
-                            deleteFan(myUser,focusUser);
-                        }else {
-                            Log.d(TAG,"error1:"+e.getMessage());
-                            ToastShort("取关失败！");
-                        }
-                    }
-                });
-            }
-
-            /*被关注用户添加粉丝*/
-            private void addFan(User myUser,User focusUser){
-                Fans fans = new Fans();
-                String fansObject = focusUser.getFans().getObjectId();
-                fans.setObjectId(fansObject);
-                Log.d(TAG,"fans_objectId:"+fansObject);
-                /*User user = new User();
-                user.setObjectId(myUser.getObjectId());*/
-                Log.d(TAG,"myUser_objectId:"+myUser.getObjectId());
-                BmobRelation relation = new BmobRelation();
-                relation.add(myUser);
-                fans.setFansList(relation);
-                fans.increment("fansNum",1);
-                fans.update(fansObject,new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e==null){
-                            focus();
-                            ToastShort("关注成功");
-                        }else {
-                            Log.d(TAG,"error2:"+e);
-                            ToastShort("关注失败！");
-                        }
-                    }
-                });
-            }
-
-            /*被关注用户删除粉丝*/
-            private void deleteFan(final User myUser,final User focusUser){
-                Fans fans = new Fans();
-                fans.setObjectId(focusUser.getFans().getObjectId());
-                BmobRelation relation = new BmobRelation();
-                relation.remove(myUser);
-                fans.setFansList(relation);
-                fans.increment("fansNum",-1);
-                fans.update(new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e==null){
-                            unFocus();
-                            ToastShort("取关成功");
-                        }else {
-                            Log.d(TAG,"error2:"+e);
-                            ToastShort("取关失败！");
-                        }
-                    }
-                });
-            }
-
-            private void focus(){
-                btn_dofocus.setBackgroundResource(R.drawable.shape_rounded_rectangle_unselect);
-                btn_dofocus.setTextColor(getResources().getColor(R.color.darkgray));
-                btn_dofocus.setText(getResources().getString(R.string.cancelfocus));
-                btn_dofocus.setTag(getResources().getString(R.string.cancelfocus));
-            }
-
-            private void unFocus(){
-                btn_dofocus.setBackgroundResource(R.drawable.shape_rounded_rectangle_select);
-                btn_dofocus.setTextColor(getResources().getColor(R.color.white));
-                btn_dofocus.setText(getResources().getString(R.string.dofocus));
-                btn_dofocus.setTag(getResources().getString(R.string.dofocus));
+    /*关注*/
+    private void doFocus(final User myUser, final User focusUser) {
+        Log.d(TAG, "userObjectId:" + focusUser.getObjectId());
+        /*添加关注的关联*/
+        User user = new User();
+        user.setObjectId(myUser.getObjectId());
+        BmobRelation relation = new BmobRelation();
+        relation.add(focusUser);
+        user.setFocusUser(relation);
+        /*关注数加1*/
+        user.increment("focusNum", 1);
+        user.update(myUser.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null || e.getErrorCode() == 9015) {
+                    addFan(myUser, focusUser);
+                } else {
+                    Log.d(TAG, "error1:" + e.getMessage());
+                    ToastShort("关注失败！");
+                }
             }
         });
+    }
+
+    /*取关*/
+    private void cancelFocus(final User myUser, final User focusUser) {
+        /*删除关注的关联*/
+        User user = new User();
+        user.setObjectId(myUser.getObjectId());
+        BmobRelation relation = new BmobRelation();
+        relation.remove(focusUser);
+        user.setFocusUser(relation);
+        /*关注数减1*/
+        user.increment("focusNum", -1);
+        user.update(myUser.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    deleteFan(myUser, focusUser);
+                } else {
+                    Log.d(TAG, "error1:" + e.getMessage());
+                    ToastShort("取关失败！");
+                }
+            }
+        });
+    }
+
+    /*被关注用户添加粉丝*/
+    private void addFan(User myUser, User focusUser) {
+        Fans fans = new Fans();
+        String fansObject = focusUser.getFans().getObjectId();
+        fans.setObjectId(fansObject);
+        Log.d(TAG, "fans_objectId:" + fansObject);
+        Log.d(TAG, "myUser_objectId:" + myUser.getObjectId());
+        BmobRelation relation = new BmobRelation();
+        relation.add(myUser);
+        fans.setFansList(relation);
+        fans.increment("fansNum", 1);
+        fans.update(fansObject, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    focus();
+                    ToastShort("关注成功");
+                } else {
+                    Log.d(TAG, "error2:" + e);
+                    ToastShort("关注失败！");
+                }
+            }
+        });
+    }
+
+    /*被关注用户删除粉丝*/
+    private void deleteFan(final User myUser, final User focusUser) {
+        Fans fans = new Fans();
+        fans.setObjectId(focusUser.getFans().getObjectId());
+        BmobRelation relation = new BmobRelation();
+        relation.remove(myUser);
+        fans.setFansList(relation);
+        fans.increment("fansNum", -1);
+        fans.update(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    unFocus();
+                    ToastShort("取关成功");
+                } else {
+                    Log.d(TAG, "error2:" + e);
+                    ToastShort("取关失败！");
+                }
+            }
+        });
+    }
+
+    private void focus() {
+        btn_dofocus.setBackgroundResource(R.drawable.shape_rounded_rectangle_unselect);
+        btn_dofocus.setTextColor(getResources().getColor(R.color.darkgray));
+        btn_dofocus.setText(getResources().getString(R.string.cancelfocus));
+        btn_dofocus.setTag(getResources().getString(R.string.cancelfocus));
+    }
+
+    private void unFocus() {
+        btn_dofocus.setBackgroundResource(R.drawable.shape_rounded_rectangle_select);
+        btn_dofocus.setTextColor(getResources().getColor(R.color.white));
+        btn_dofocus.setText(getResources().getString(R.string.dofocus));
+        btn_dofocus.setTag(getResources().getString(R.string.dofocus));
     }
 }

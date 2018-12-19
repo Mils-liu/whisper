@@ -37,23 +37,28 @@ public class RegisterPresenter implements RegisterInterface.Presenter {
         } else if (sex != UNCERTAIN && sex != MALE && sex != FEMALE) {
             ToastShort("性别不能为空");
         } else {
-            mView.registerLoading();
-            mInteractor.doRegister(username, password, sex,
-                    new RegisterInterface.Interactor.RegisterCallback() {
-                        @Override
-                        public void onSuccess() {
-                            prefUtil.put("headSignature",String.valueOf(System.currentTimeMillis()));
-                            prefUtil.put("bgSignature",String.valueOf(System.currentTimeMillis()));
-                            mView.toHome();//进入主界面
-                            ToastShort("欢迎加入轻语^_^");
-                            mView.registerEnd("");
-                        }
+            if (password.length()<6){
+                ToastShort("密码长度需大于6");
+            }else {
+                mView.registerLoading();
+                mInteractor.doRegister(username, password, sex,
+                        new RegisterInterface.Interactor.RegisterCallback() {
+                            @Override
+                            public void onSuccess() {
+                                prefUtil.put("headSignature",String.valueOf(System.currentTimeMillis()));
+                                prefUtil.put("bgSignature",String.valueOf(System.currentTimeMillis()));
+                                mView.toHome();//进入主界面
+                                ToastShort("欢迎加入轻语^_^");
+                                mView.registerEnd("");
+                            }
 
-                        @Override
-                        public void onFailure() {
-                            mView.registerEnd("注册失败");
-                        }
-                    });
-        }
+                            @Override
+                            public void onFailure() {
+                                mView.registerEnd("注册失败");
+                            }
+                        });
+            }
+            }
+
     }
 }

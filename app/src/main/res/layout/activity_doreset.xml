@@ -1,64 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="重置密码"
-        android:textSize="@dimen/text_size_15"
         android:layout_above="@+id/ll_resetPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/margin_40"
-        android:textColor="@color/darkgreen"/>
+        android:text="重置密码"
+        android:textColor="@color/darkgreen"
+        android:textSize="@dimen/text_size_15" />
 
     <LinearLayout
         android:id="@+id/ll_resetPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <EditText
+            android:id="@+id/edt_newPassword"
             android:layout_width="@dimen/width_180"
             android:layout_height="@dimen/height_30"
             android:layout_gravity="center"
-            android:hint="验证码"
-            android:gravity="center"
-            android:textSize="@dimen/text_size_15"
+            android:layout_marginBottom="@dimen/margin_20"
             android:background="@drawable/shape_rounded_rectangle"
-            android:layout_marginBottom="@dimen/margin_20" />
-
-        <EditText
-            android:layout_width="@dimen/width_180"
-            android:layout_height="@dimen/height_30"
-            android:layout_gravity="center"
+            android:digits="@string/filter_password"
+            android:gravity="center"
             android:hint="请输入新密码"
-            android:gravity="center"
-            android:textSize="@dimen/text_size_15"
-            android:background="@drawable/shape_rounded_rectangle"
-            android:layout_marginBottom="@dimen/margin_20"/>
+            android:password="true"
+            android:textCursorDrawable="@drawable/my_cursor"
+            android:textSize="@dimen/text_size_15" />
 
         <EditText
+            android:id="@+id/edt_newPassword_confirm"
             android:layout_width="@dimen/width_180"
             android:layout_height="@dimen/height_30"
             android:layout_gravity="center"
-            android:hint="确认密码"
-            android:gravity="center"
-            android:textSize="@dimen/text_size_15"
+            android:layout_marginBottom="@dimen/margin_40"
             android:background="@drawable/shape_rounded_rectangle"
-            android:layout_marginBottom="@dimen/margin_40"/>
+            android:digits="@string/filter_password"
+            android:gravity="center"
+            android:hint="确认密码"
+            android:password="true"
+            android:textCursorDrawable="@drawable/my_cursor"
+            android:textSize="@dimen/text_size_15" />
 
         <Button
             android:id="@+id/btn_reset_succed"
             android:layout_width="@dimen/width_180"
             android:layout_height="@dimen/height_30"
             android:layout_gravity="center"
+            android:background="@drawable/shape_rounded_rectangle_green"
             android:text="确认"
-            android:textSize="@dimen/text_size_15"
-            android:background="@drawable/shape_rounded_rectangle_green"/>
+            android:textSize="@dimen/text_size_15" />
 
     </LinearLayout>
 

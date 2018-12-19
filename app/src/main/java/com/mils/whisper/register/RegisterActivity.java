@@ -41,7 +41,6 @@ public class  RegisterActivity extends BaseActivity implements OnSexSelectListen
     public Button btn_register;
 
     private SexDialogFragment sexDialog;
-    private PictureDialogFragment picDialog;
     private RegisterInterface.Presenter mPresenter;
     private int sex_choose = -1;
 
@@ -81,7 +80,6 @@ public class  RegisterActivity extends BaseActivity implements OnSexSelectListen
     @Override
     public void initView() {
         sexDialog = new SexDialogFragment();
-        picDialog = new PictureDialogFragment();
     }
 
     @Override

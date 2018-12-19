@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="@color/white"
     android:fitsSystemWindows="true">
 
     <TextView
@@ -27,6 +27,7 @@
         android:hint="用户名"
         android:lines="1"
         android:padding="@dimen/margin_5"
+        android:textCursorDrawable="@drawable/my_cursor"
         android:textSize="@dimen/text_size_15" />
 
     <EditText
@@ -43,6 +44,7 @@
         android:lines="1"
         android:padding="@dimen/margin_5"
         android:password="true"
+        android:textCursorDrawable="@drawable/my_cursor"
         android:textSize="@dimen/text_size_15" />
 
     <EditText
@@ -59,6 +61,7 @@
         android:lines="1"
         android:padding="@dimen/margin_5"
         android:password="true"
+        android:textCursorDrawable="@drawable/my_cursor"
         android:textSize="@dimen/text_size_15" />
 
     <TextView

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.mils.whisper.R;
 import com.mils.whisper.article.article.VisitArticleActivity;
@@ -29,6 +30,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
 
+import static android.view.View.GONE;
 import static com.mils.whisper.bean.Article.END_VIEW;
 import static com.mils.whisper.util.ToastUtil.ToastShort;
 
@@ -43,6 +45,8 @@ public class DynamicsFragment extends BaseFragment {
     @BindView(R.id.view_statusBar_dy)
     View view_statusBar;
     Button btn_like;
+    @BindView(R.id.rl_loading_dy)
+    RelativeLayout rl_loading;
 
     int skipTime=0;
     final int limitNum=5;
@@ -90,6 +94,7 @@ public class DynamicsFragment extends BaseFragment {
                     initDynamics(focusList,false);
                 }else{
                     Log.d(TAG,"error:"+e);
+                    rl_loading.setVisibility(GONE);
                 }
             }
         });
@@ -127,6 +132,7 @@ public class DynamicsFragment extends BaseFragment {
                     }
                 }else {
                     Log.d(TAG,"error:"+e);
+                    rl_loading.setVisibility(GONE);
                 }
             }
         });
@@ -138,8 +144,8 @@ public class DynamicsFragment extends BaseFragment {
         rv_dynamics.setLayoutManager(layoutManager);
         dynamicsAdapter = new DynamicsAdapter(list,currentUser);
         rv_dynamics.setAdapter(dynamicsAdapter);
-        btn_like = (Button)view.findViewById(R.id.btn_like_dy);
-        dynamicsAdapter.setOnRecyclerViewListener(new ArticleAdapter.OnRecyclerViewListener() {
+        rl_loading.setVisibility(GONE);
+        dynamicsAdapter.setOnRecyclerViewListener(new DynamicsAdapter.OnRecyclerViewListener() {
             @Override
             public void onItemClick(View view, int position) {
                 switch (view.getId()){
@@ -155,6 +161,7 @@ public class DynamicsFragment extends BaseFragment {
                         startActivity(UserVisitActivity.class,bundle2);
                         break;
                     case R.id.btn_like_dy:
+                        btn_like = (Button)view.findViewById(R.id.btn_like_dy);
                         Log.d(TAG,"Like");
                         if (btn_like.getTag().toString().equals(getResources().getString(R.string.unlike))){
                             Log.d(TAG,"doLike");

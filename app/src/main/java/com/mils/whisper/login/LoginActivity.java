@@ -13,7 +13,6 @@ import com.mils.whisper.base.BaseActivity;
 import com.mils.whisper.bean.User;
 import com.mils.whisper.home.HomeActivity;
 import com.mils.whisper.register.RegisterActivity;
-import com.mils.whisper.resetpassword.ResetPasswordActivity;
 import com.mils.whisper.util.SharedPreferencesUtil;
 import com.mils.whisper.util.TimeUtil;
 
@@ -57,12 +56,6 @@ public class LoginActivity extends BaseActivity {
     public void toRegister(){
         if(TimeUtil.fastClick()){
             startActivity(RegisterActivity.class);
-        }
-    }
-    @OnClick(R.id.txt_password_forget)
-    public void toReset(){
-        if(TimeUtil.fastClick()){
-            startActivity(ResetPasswordActivity.class);
         }
     }
     @OnClick(R.id.btn_login)

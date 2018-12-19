@@ -196,7 +196,8 @@ public class UserFragment extends BaseFragment implements UserInterface.View, On
         if (user != null) {
             txt_username.setText(user.getUsername());
             Log.d(TAG,"username:"+user.getUsername());
-            txt_focusnum.setText(user.getFocusNum().toString());
+            /*txt_focusnum.setText(user.getFocusNum().toString());*/
+            Log.d(TAG,"txt_focusnum:"+user.getFocusNum().toString());
             initSex(user.getSex());
             txt_brief.setText(user.getBrief().toString());
             Log.d(TAG, user.getHead());
