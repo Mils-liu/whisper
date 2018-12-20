@@ -33,6 +33,7 @@ import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.mils.whisper.util.ResourceUtil.getResString;
 import static com.mils.whisper.util.ToastUtil.ToastShort;
 
 
@@ -177,9 +178,9 @@ public class VisitArticleActivity extends BaseActivity {
             cancelLike();
         }
     }
+
     /*收藏文字*/
     private void doCollect(){
-        Loading("收藏文字...");
         Article article = new Article();
         article.setObjectId(visitArticle.getObjectId());
         BmobRelation relation = new BmobRelation();
@@ -192,7 +193,7 @@ public class VisitArticleActivity extends BaseActivity {
                 if (e==null){
                     userAddCollect();
                 }else {
-                    LoadFailure("收藏失败");
+                    ToastShort(getResString(R.string.error));
                     Log.d(TAG,"error1:"+e);
                 }
             }
@@ -200,7 +201,6 @@ public class VisitArticleActivity extends BaseActivity {
     }
     /*取消收藏文字*/
     private void cancelCollect(){
-        Loading("取消收藏...");
         Article article = new Article();
         article.setObjectId(visitArticle.getObjectId());
         BmobRelation relation = new BmobRelation();
@@ -213,8 +213,8 @@ public class VisitArticleActivity extends BaseActivity {
                 if (e==null){
                     userRemoveCollect();
                 }else {
-                    LoadFailure("取消收藏失败");
-                    Log.d(TAG,"error1:"+e);
+                    ToastShort(getResString(R.string.error));
+                    Log.d(TAG,"error2:"+e);
                 }
             }
         });
@@ -236,10 +236,10 @@ public class VisitArticleActivity extends BaseActivity {
                 if (e==null){
                     collectState();
                     LoadSuccess();
-                    ToastShort("收藏成功");
+                    ToastShort(getResString(R.string.success));
                 }else {
-                    LoadFailure("收藏失败！");
-                    Log.d(TAG,"error11:"+e);
+                    ToastShort(getResString(R.string.error));
+                    Log.d(TAG,"error3:"+e);
                 }
             }
         });
@@ -263,10 +263,10 @@ public class VisitArticleActivity extends BaseActivity {
             public void done(BmobException e) {
                 if (e==null){
                     uncollectState();
-                    LoadSuccess();
-                    ToastShort("取消收藏成功");
+                    ToastShort(getResString(R.string.success));
                 }else {
-                    LoadFailure("取消收藏失败");
+                    ToastShort(getResString(R.string.error));
+                    Log.d(TAG,"error4:"+e);
                 }
             }
         });
@@ -274,7 +274,6 @@ public class VisitArticleActivity extends BaseActivity {
 
     /*点赞文字*/
     private void doLike(){
-        Loading("点赞文字...");
         Article article = new Article();
         article.setObjectId(visitArticle.getObjectId());
         BmobRelation relation = new BmobRelation();
@@ -287,15 +286,14 @@ public class VisitArticleActivity extends BaseActivity {
                 if (e==null){
                     userAddLike();
                 }else {
-                    LoadFailure("点赞失败");
-                    Log.d(TAG,"error1:"+e);
+                    ToastShort(getResString(R.string.error));
+                    Log.d(TAG,"error5:"+e);
                 }
             }
         });
     }
     /*取消点赞文字*/
     private void cancelLike(){
-        Loading("取消点赞");
         Article artile = new Article();
         artile.setObjectId(visitArticle.getObjectId());
         BmobRelation relation = new BmobRelation();
@@ -308,8 +306,8 @@ public class VisitArticleActivity extends BaseActivity {
                 if (e==null){
                     userRemoveLike();
                 }else {
-                    LoadFailure("取消点赞失败");
-                    Log.d(TAG,"error:"+e);
+                    ToastShort(getResString(R.string.error));
+                    Log.d(TAG,"error6:"+e);
                 }
             }
         });
@@ -328,10 +326,9 @@ public class VisitArticleActivity extends BaseActivity {
             public void done(BmobException e) {
                 if (e==null){
                     likeState();
-                    LoadSuccess();
-                    ToastShort("点赞成功");
                 }else {
-                    LoadFailure("点赞失败");
+                    ToastShort(getResString(R.string.error));
+                    Log.d(TAG,"error7:"+e);
                 }
             }
         });
@@ -355,9 +352,9 @@ public class VisitArticleActivity extends BaseActivity {
                 if (e==null){
                     unlikeState();
                     LoadSuccess();
-                    ToastShort("取消点赞成功");
                 }else {
-                    LoadFailure("取消点赞失败");
+                    ToastShort(getResString(R.string.error));
+                    Log.d(TAG,"error8:"+e);
                 }
             }
         });

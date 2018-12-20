@@ -3,9 +3,11 @@ package com.mils.whisper.login;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mils.whisper.R;
 import com.mils.whisper.app.MyApplicant;
@@ -43,6 +45,7 @@ public class LoginActivity extends BaseActivity {
     public TextView txt_register;
 
     private SharedPreferencesUtil prefUtil;
+    long exitTime=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,7 +97,7 @@ public class LoginActivity extends BaseActivity {
                         finish();
                     }else {
                         Log.d(TAG,"LoginError:"+e);
-                        LoadFailure("手机号与密码不匹配");
+                        LoadFailure("用户名与密码不匹配");
                     }
                 }
             });
@@ -106,5 +109,24 @@ public class LoginActivity extends BaseActivity {
         prefUtil = new SharedPreferencesUtil("GlideSignature");
         prefUtil.put("headSignature",String.valueOf(System.currentTimeMillis()));
         prefUtil.put("bgSignature",String.valueOf(System.currentTimeMillis()));
+    }
+
+    //双击退出
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit(){//退出程序
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+        }
     }
 }

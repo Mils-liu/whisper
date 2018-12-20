@@ -53,6 +53,7 @@ import static com.mils.whisper.dialogfragment.PictureDialogFragment.imageUri;
 import static com.mils.whisper.dialogfragment.SexDialogFragment.FEMALE;
 import static com.mils.whisper.dialogfragment.SexDialogFragment.MALE;
 import static com.mils.whisper.dialogfragment.SexDialogFragment.UNCERTAIN;
+import static com.mils.whisper.util.ResourceUtil.getResDrawble;
 
 /**
  * Created by Administrator on 2018/6/1.
@@ -196,7 +197,7 @@ public class UserFragment extends BaseFragment implements UserInterface.View, On
         if (user != null) {
             txt_username.setText(user.getUsername());
             Log.d(TAG,"username:"+user.getUsername());
-            /*txt_focusnum.setText(user.getFocusNum().toString());*/
+            txt_focusnum.setText(user.getFocusNum().toString());
             Log.d(TAG,"txt_focusnum:"+user.getFocusNum().toString());
             initSex(user.getSex());
             txt_brief.setText(user.getBrief().toString());
@@ -244,7 +245,7 @@ public class UserFragment extends BaseFragment implements UserInterface.View, On
                     Glide.with(getContext()).load(object.get(0).getArticleCover().getUrl()).into(img_mycover);
                     Log.d(TAG,"title:"+object.get(0).getTitle());
                 }else {
-                    Glide.with(getContext()).load(R.drawable.image).into(img_collectCover);
+                    Glide.with(getContext()).load(getResDrawble(R.drawable.image)).into(img_collectCover);
                     Log.d(TAG,"error:"+e);
                 }
             }
@@ -264,11 +265,13 @@ public class UserFragment extends BaseFragment implements UserInterface.View, On
                     if (e==null){
                         Glide.with(getContext()).load(list.get(0).getArticleCover().getUrl()).into(img_collectCover);
                     }else {
-                        Glide.with(getContext()).load(R.drawable.image).into(img_collectCover);
+                        Glide.with(getContext()).load(getResDrawble(R.drawable.image)).into(img_collectCover);
                         Log.d(TAG,"error:"+e);
                     }
                 }
             });
+        }else {
+            Glide.with(getContext()).load(getResDrawble(R.drawable.image)).into(img_collectCover);
         }
     }
 

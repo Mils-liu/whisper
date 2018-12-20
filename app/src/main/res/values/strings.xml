@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Whisper</string>
+    <string name="app_name">轻语</string>
     <string name="dofocus">+ 关 注</string>
     <string name="cancelfocus">- 取 关</string>
     <string name="male">男</string>
@@ -17,6 +17,8 @@
     <string name="like">like</string>
     <string name="end">-end-</string>
     <string name="empty">空空如野o(︶︿︶)o</string>
+    <string name="error">操作失败</string>
+    <string name="success">操作成功</string>
 
     <array name="prodIcon_tab">
         <item>@drawable/selector_icon_user</item>

@@ -40,8 +40,6 @@
         android:layout_height="@dimen/articlecover_height"
         android:layout_below="@+id/rl_search" />
 
-
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/sr"
         android:layout_width="match_parent"

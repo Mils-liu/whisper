@@ -57,8 +57,6 @@ public class EditArticleActivity extends BaseActivity implements OnPicSelectList
     public EditText edt_addtitle;
     @BindView(R.id.edt_edit)
     public EditText edt_edit;
-    @BindView(R.id.txt_save)
-    public TextView txt_save;
     @BindView(R.id.txt_release)
     public TextView txt_release;
     @BindView(R.id.txt_addtextHint)

@@ -59,8 +59,12 @@ public class RecommendFragment extends BaseFragment implements OnBannerListener 
     private List<String> coverList;
     private List<Article> banArticleList = new ArrayList<Article>();
     private List<Article> recArticleList = new ArrayList<Article>();
-    private BmobUser user;
     private boolean flag = false;
+    private boolean updateAt = false;
+    private boolean refresh = false;
+    private int limit = 3;
+    private int skipTime = 0;
+    private RecommendArticleAdapter adapter;
 
 
     @Override
@@ -81,7 +85,6 @@ public class RecommendFragment extends BaseFragment implements OnBannerListener 
     @Override
     protected void initData(Bundle arguments) {
         super.initData(arguments);
-        user = BmobUser.getCurrentUser(User.class);
         initBannerArticleList();
     }
 
@@ -91,8 +94,21 @@ public class RecommendFragment extends BaseFragment implements OnBannerListener 
         initStatusBar(view_statusBar, LayoutConfig.RELATIVE_LAYOUT);
         initRecommendArticleList();
         sr.setColorSchemeResources(R.color.darkgreen);
+        sr.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (updateAt){
+                    updateAt = false;
+                }else {
+                    updateAt = true;
+                }
+                Log.d(TAG,"updateAt:"+updateAt);
+                refreshRecommendArticleList();
+            }
+        });
     }
 
+    /*轮播图的点击事件*/
     @Override
     public void OnBannerClick(int position) {
         if (TimeUtil.fastClick()){
@@ -137,8 +153,8 @@ public class RecommendFragment extends BaseFragment implements OnBannerListener 
     /*初始化轮播图上的文字*/
     private void initBannerArticleList(){
         BmobQuery<Article> query = new BmobQuery<Article>();
-        query.addWhereEqualTo("author", user);  // 查询当前用户的所有帖子
-        query.order("-updatedAt");
+        query.addWhereEqualTo("authorObjectId", "affc1d1114");
+        query.order("updatedAt");
         query.findObjects(new FindListener<Article>() {
             @Override
             public void done(List<Article> list, BmobException e) {
@@ -158,7 +174,9 @@ public class RecommendFragment extends BaseFragment implements OnBannerListener 
     /*初始化推荐文字*/
     private void initRecommendArticleList(){
         BmobQuery<Article> query = new BmobQuery<Article>();
-        query.addWhereEqualTo("author", user);  // 查询当前用户的所有帖子
+        query.addWhereEqualTo("authorObjectId", "affc1d1114");
+        query.setLimit(limit);
+        query.setSkip(limit*skipTime);
         query.order("-updatedAt");
         query.findObjects(new FindListener<Article>() {
             @Override
@@ -168,10 +186,42 @@ public class RecommendFragment extends BaseFragment implements OnBannerListener 
                         recArticleList.add(article);
                         Log.d(TAG,"recArticleTitle:"+article.getTitle());
                     }
-                    initAdapter(recArticleList);
+                    if (flag){
+                        recArticleList.remove(recArticleList.size()-list.size()-1);
+                        adapter.notifyDataSetChanged();
+                        flag=false;
+                    }else {
+                        initAdapter(recArticleList);
+                    }
                 }else {
                     Log.d(TAG,"error:"+e);
                 }
+            }
+        });
+    }
+
+    private void refreshRecommendArticleList(){
+        BmobQuery<Article> query = new BmobQuery<Article>();
+        query.addWhereEqualTo("authorObjectId", "affc1d1114");
+        query.setLimit(limit*(++skipTime));
+        if (updateAt) {
+            query.order("-updatedAt");
+        }else {
+            query.order("updatedAt");
+        }
+        query.findObjects(new FindListener<Article>() {
+            @Override
+            public void done(List<Article> list, BmobException e) {
+                if (e==null){
+                    recArticleList.clear();
+                    for (Article article : list) {
+                        recArticleList.add(article);
+                    }
+                    adapter.notifyDataSetChanged();
+                }else {
+                    Log.d(TAG,"error:"+e);
+                }
+                sr.setRefreshing(false);
             }
         });
     }
@@ -181,7 +231,7 @@ public class RecommendFragment extends BaseFragment implements OnBannerListener 
         if (articleList.size()>0){
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             rv_recommend.setLayoutManager(layoutManager);
-            final RecommendArticleAdapter adapter = new RecommendArticleAdapter(articleList);
+            adapter = new RecommendArticleAdapter(articleList);
             rv_recommend.setAdapter(adapter);
 
             adapter.setOnRecyclerViewListener(new RecommendArticleAdapter.OnRecyclerViewListener() {
@@ -198,20 +248,13 @@ public class RecommendFragment extends BaseFragment implements OnBannerListener 
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
-                    if (isSlideToBottom(recyclerView)&&(flag==false)){
+                    if (isSlideToBottom(recyclerView)&&(flag==false)&&skipTime<2){
                         Article article = new Article(PROGRESS_VIEW);
                         recArticleList.add(article);
                         adapter.notifyDataSetChanged();
                         flag=true;
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                recArticleList.remove(recArticleList.size()-1);
-                                adapter.notifyDataSetChanged();
-                                flag=false;
-                            }
-                        }, 2000);
+                        skipTime++;
+                        initRecommendArticleList();
                     }
                 }
             });

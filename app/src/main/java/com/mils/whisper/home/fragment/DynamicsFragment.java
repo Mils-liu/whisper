@@ -52,6 +52,7 @@ public class DynamicsFragment extends BaseFragment {
     final int limitNum=5;
     private String TAG = "DynamicsFragment";
     private boolean flag = false;
+    private boolean end = false;
     DynamicsAdapter dynamicsAdapter;
     private List<User> focusList = new ArrayList<>();
     private List<Article> articleList = new ArrayList<>();
@@ -121,16 +122,27 @@ public class DynamicsFragment extends BaseFragment {
                     articleList.addAll(list);
                     skipTime++;
                     if (loadmore){
-                        if (null==list||list.size()<5){
+                        if ((null==list||list.size()<5)&&!end){
                             Article article = new Article(END_VIEW);
                             articleList.add(article);
-                            flag=false;
+                            end=true;
+                            flag=true;
                         }
                         dynamicsAdapter.notifyDataSetChanged();
                     }else {
+                        if (null==list||list.size()<5){
+                            Article article = new Article(END_VIEW);
+                            articleList.add(article);
+                            end=true;
+                        }
                         initAdapter(articleList);
                     }
                 }else {
+                    if (!end){
+                        Article article = new Article(END_VIEW);
+                        articleList.add(article);
+                        dynamicsAdapter.notifyDataSetChanged();
+                    }
                     Log.d(TAG,"error:"+e);
                     rl_loading.setVisibility(GONE);
                 }

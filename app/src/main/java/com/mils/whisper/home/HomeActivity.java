@@ -12,10 +12,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mils.whisper.R;
 import com.mils.whisper.base.BaseActivity;
@@ -46,6 +48,7 @@ public class HomeActivity extends BaseActivity {
     public ViewPager vp_home;
 
     String[] title = {"个人", "推荐", "动态"};
+    long exitTime=0;
 
     private IntentFilter intentFilter;
     private NetWorkReceiver netWorkReceiver;
@@ -178,6 +181,25 @@ public class HomeActivity extends BaseActivity {
             Log.d(TAG,"requestCode:"+requestCode);
 
             userFragment.onActivityResult(requestCode,resultCode,data);
+        }
+    }
+
+    //双击退出
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit(){//退出程序
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
         }
     }
 }
