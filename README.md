@@ -1,8 +1,7 @@
-# whisper
-
 Bmob提供的免费后台让我能够去写这一个希望已久的社交APP，但是。。。大概是免费的原因，Bmob经常间隙性报错，时灵时不灵，总能报出让我难以理解的内部错误，还时而倒序时而正序地给我显示数据。。。给我感觉是我不是在写代码，而是在受Bmob的折磨，最后果断放弃。但总得来说有这么一个免费的后台对于尝试编写社交APP的我来说已经足够了。
 
 在这期间，我第一次对Activity，Fragment，DiaglogFragment进行封装，学会了Butterknife，多种item的Adapter等等。我试着用MVP的模式敲这个APP，想想也是脑残。。。
+
 # 轻语
 
 ![轻语](https://upload-images.jianshu.io/upload_images/7019098-d56f5797ed00cf3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
