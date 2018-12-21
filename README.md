@@ -41,6 +41,7 @@
 文字界面有点模仿BiliBili的专栏界面，可收藏、点赞文字。
 
 ![文字](https://upload-images.jianshu.io/upload_images/7019098-00637439c19da467.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![文字](https://upload-images.jianshu.io/upload_images/7019098-dc56f6a23172408c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 # END
 简书地址：https://www.jianshu.com/p/3a5761a0cf4d
