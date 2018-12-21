@@ -4,7 +4,7 @@ Bmob提供的免费后台让我能够去写这一个希望已久的社交APP，�
 
 在这期间，我第一次对Activity，Fragment，DiaglogFragment进行封装，学会了Butterknife，多种item的Adapter等等。我试着用MVP的模式敲这个APP，想想也是脑残。。。
 # 轻语
-(https://upload-images.jianshu.io/upload_images/7019098-d56f5797ed00cf3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+https://upload-images.jianshu.io/upload_images/7019098-d56f5797ed00cf3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/72/format/webp
 ### 1.注册与登录
 首先是注册用户，Bmob其实提供了邮箱注册与手机注册，但由于我没注意到免费的用户只能用15条短信，导致我在测试的时候一不小心用多了只能改成最基本的用户名和密码注册，没有短信，连忘了密码这个功能都放弃了。
 ![注册](https://upload-images.jianshu.io/upload_images/7019098-d4e9b1b0f8563f3d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
